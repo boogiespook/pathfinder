@@ -59,7 +59,7 @@
 			<section class="wrapper">
 				<div class="inner">
 					<div class="highlights">
-						<form action="#">
+						<form action="">
 
   <fieldset>
     <label for="customer">Select a Customer</label>
@@ -68,13 +68,52 @@
 			## Get customer list as drop down
 			$response = file_get_contents('http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/');
 			foreach (json_decode($response,true) as $customer) {
-			print "<option>" . $customer['CustomerName'] . "</option>";
+			print "<option value=" . $customer['CustomerId'] . ">" . $customer['CustomerName'] . "</option>";
 			}
 			 ?>
 
     </select>
 	</fieldset>
+<br>
+	<input type="submit" value="Get Results">
+
 	</form>
+	
+
+	
+	<?php
+if (isset($_REQUEST['customer'])) {
+
+print '<table><thead><tr><td>Application</td><td>Number of Assessments</td><td>View</td><td>Review</td></tr></thead><tbody>';
+## Results go here
+$cust = $_REQUEST['customer'];
+$customerDetails = file_get_contents("http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$cust");
+#print_r($customerDetails);
+$nn = json_decode($customerDetails,true);
+$name = $nn['CustomerName'];
+print "<h3>Results for $name</h3>";
+
+## Get the apps and results.
+$appsRaw = file_get_contents("http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$cust/applications/");
+$appsArr = json_decode($appsRaw,true);
+foreach ($appsArr as $app) {
+$appName = $app['Name'];
+$appId = $app['Id'];
+## Get number of Assessments
+$assessments = file_get_contents("http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$cust/applications/$appId/assessments/");
+print_r($assessments);
+print "<tr><td>" . $appName . "</td>";
+print "<td> </td>";
+print "<td> </td>";
+print "<td> </td>";
+print "</tr>";
+}
+
+print "	 </table>";
+
+}
+
+	 ?>
 					</div>
 				</div>
 			</section>
