@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "ajv": "^6.2.1",
     "array2d": "^0.0.5",
     "material-ui": "^1.0.0-beta.36",
     "material-ui-icons": "^1.0.0-beta.17",
