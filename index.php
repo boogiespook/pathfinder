@@ -17,7 +17,7 @@
 
 		<!-- Header -->
 			<header id="header">
-				<a class="logo" href="index.html">Pathfinder</a>
+				<a class="logo" href="index.php">Pathfinder</a>
 				<nav>
 					<a href="#menu">Menu</a>
 				</nav>
@@ -26,9 +26,10 @@
 		<!-- Nav -->
 			<nav id="menu">
 				<ul class="links">
-					<li><a href="index.html">Admin</a></li>
-					<li><a href="elements.html">Results</a></li>
-					<li><a href="generic.html">Survey</a></li>
+					<li><a href="index.php">Home</a></liadmin>
+					<li><a href="admin.php">Admin</a></li>
+					<li><a href="results.php">Results</a></li>
+					<li><a href="http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/" target=_blank>Survey</a></li>
 				</ul>
 			</nav>
 
@@ -36,7 +37,7 @@
 			<section id="banner">
 				<div class="inner">
 					<h1>Pathfinder</h1>
-					<p>An Application Assessment for grown-ups.	</div>
+					<p>Pathfinder is an application assessment which can quickly assist a customer with creating a strategy for containerisation of their applications.</div>
 				<video autoplay loop muted playsinline src="images/banner.mp4"></video>
 			</section>
 
@@ -51,16 +52,16 @@
 						<section>
 							<div class="content">
 								<header>
-									<a href="#" class="icon fa-vcard-o"><span class="label">Icon</span></a>
+									<a href="admin.php" class="icon fa-vcard-o"><span class="label">Icon</span></a>
 									<h3>Administration</h3>
 								</header>
-								<p>Add customers and applications.</p>
+								<p>Add/edit customers and applications.</p>
 							</div>
 						</section>
 						<section>
 							<div class="content">
 								<header>
-									<a href="#" class="icon fa-files-o"><span class="label">Icon</span></a>
+									<a href="http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/" target=_blank class="icon fa-files-o"><span class="label">Icon</span></a>
 									<h3>Run the assessment questionnaire.</h3>
 								</header>
 								<p>26 questions to start you on your way.</p>
@@ -69,10 +70,10 @@
 						<section>
 							<div class="content">
 								<header>
-									<a href="#" class="icon fa-line-chart"><span class="label">Icon</span></a>
+									<a href="results.php" class="icon fa-line-chart"><span class="label">Icon</span></a>
 									<h3>Results</h3>
 								</header>
-								<p>Funky bubble charts and other stuff.</p>
+								<p>View and edit assessment results.</p>
 							</div>
 						</section>
 					</div>
@@ -82,21 +83,9 @@
 		<!-- CTA -->
 			<section id="cta" class="wrapper">
 				<div class="inner">
-					<h2>Red Hat Value from Technology Team .... plus Noel :-)</h2>
-					<p>More clever words.</p>
+					<h2>EMEA Red Hat Value from Technology Team</h2>
 				</div>
 			</section>
-
-		<!-- Footer -->
-			<footer id="footer">
-				<div class="inner">
-					<div class="content">
-					</div>
-					<div class="copyright">
-						&copy; Untitled. Photos <a href="https://unsplash.co">Unsplash</a>, Video <a href="https://coverr.co">Coverr</a>.
-					</div>
-				</div>
-			</footer>
 
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
