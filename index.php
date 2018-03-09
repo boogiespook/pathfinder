@@ -45,8 +45,8 @@
 			<section class="wrapper">
 				<div class="inner">
 					<header class="special">
-						<h2>Choose on of the options below.</h2>
-						<p>Lots of clever words to go here.</p>
+						<h2>Choose one of the options below</h2>
+
 					</header>
 					<div class="highlights">
 						<section>
