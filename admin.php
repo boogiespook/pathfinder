@@ -12,13 +12,7 @@
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
 		<link rel="stylesheet" href="assets/css/main.css" />
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <script>
 $(document).ready(function(){
 	
@@ -48,9 +42,10 @@ $(document).ready(function(){
 					<li><a href="index.php">Home</a></liadmin>
 					<li><a href="admin.php">Admin</a></li>
 					<li><a href="results.php">Results</a></li>
-					<li><a href="generic.php">Survey</a></li>
+					<li><a href="http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/" target=_blank>Survey</a></li>
 				</ul>
 			</nav>
+
 
 		<!-- Banner -->
 			<section id="banner2">
@@ -140,7 +135,13 @@ print "</tr>";
 				</div>
 			</section>
 
-
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
 
