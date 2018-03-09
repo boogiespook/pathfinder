@@ -12,6 +12,25 @@
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$(document).ready(function(){
+	
+	$('#message').fadeIn('slow', function(){
+               $('#message').delay(5000).fadeOut(); 
+            });
+            
+    $("button").click(function(){
+        $("#aaa").toggle();
+    });
+});
+</script>
 	</head>
 	<body class="is-preload">
 
@@ -50,7 +69,34 @@
 					</div>
 					<table><thead><tr><td>Customer Name</td><td>Customer Details</td><td>Applications</td><td>Edit</td></tr></thead><tbody>
 <?php
+
+# check if there is a customer to add
+
+if (isset($_REQUEST['name'])) {
+print '<div id="message" class="message" style="display:none;">' . $_REQUEST['name'] . ' Added</div>';
+$custName = $_REQUEST['name'];
+$custDesc = $_REQUEST['description'];
+$custAssessor = $_REQUEST['assessor'];
+
+$data = array("CustomerName" => $custName, "CustomerDescription" => $custDesc, "CustomerAssessor" => $custAssessor);
+$data_string = json_encode($data);                                                                                   
+
+$ch = curl_init('http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/');
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+    'Content-Type: application/json',                                                                                
+    'Content-Length: ' . strlen($data_string))                                                                       
+);                                                                                                                   
+                                                                                                                     
+$result = curl_exec($ch);                                                                      
+
+}
+
 # Get customer details from mongo
+
+#phpinfo();
 
 $response = file_get_contents('http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/');
 
@@ -77,6 +123,18 @@ print "</tr>";
 </tbody>
 </table>
 
+<!--<button id="buttonOpener" id="show">Add New Customer</button>   -->
+
+<div id="aaa"  style="display:none">
+<form id="myForm" action="#" method="post"> 
+    Customer Name: <input type="text" name="name" /> 
+    Customer Description: <input type="text" name="description"></input> 
+    Customer Assessor: <input type="text" name="assessor"></input>
+<br>
+    <input type="submit" value="Add" /> 
+</form>
+</div>
+
 <button>Add New Customer</button>
 
 				</div>
@@ -84,13 +142,7 @@ print "</tr>";
 
 
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 
 	</body>
 </html>

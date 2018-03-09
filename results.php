@@ -101,11 +101,12 @@ $appName = $app['Name'];
 $appId = $app['Id'];
 ## Get number of Assessments
 $assessments = file_get_contents("http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$cust/applications/$appId/assessments/");
-print_r($assessments);
+#print_r($assessments);
+$ass = json_decode($assessments);
 print "<tr><td>" . $appName . "</td>";
-print "<td> </td>";
-print "<td> </td>";
-print "<td> </td>";
+print "<td>" .  sizeof($ass)  . "</td>";
+print "<td>V</td>";
+print "<td>R</td>";
 print "</tr>";
 }
 
