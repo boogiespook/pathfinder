@@ -53,7 +53,7 @@ $custId = $_REQUEST['customer'];
 
 
 # Get all the apps for that client
-$apps = file_get_contents("http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$custId/applications/");
+$apps = file_get_contents("http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$custId/applications/");
 #print_r($apps);
 print "<table width=50%><thead><tr><td>Applications:</td><td>Delete (TBD)</td></tr></thead><tbody>";
 foreach (json_decode($apps,true) as $app) {
@@ -72,7 +72,7 @@ $data = array("Name" => $appName, "Description" => $appDesc);
 $data_string = json_encode($data);      
 
 #print_r($data);                                                                             
-$url = "http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/" . $custId . "/applications/";
+$url = "http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/" . $custId . "/applications/";
 $ch = curl_init($url);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
 curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  

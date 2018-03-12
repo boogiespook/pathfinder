@@ -21,7 +21,7 @@ $answers = array();
 $questions = array();
 $data = array();
 
-$url = "http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/" . $details['customer'] . "/applications/" . $details['app'] . "/assessments/" . $details['assessment'];
+$url = "http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/" . $details['customer'] . "/applications/" . $details['app'] . "/assessments/" . $details['assessment'];
 #print $url;
 $res = file_get_contents($url);
 $results = json_decode($res,true);

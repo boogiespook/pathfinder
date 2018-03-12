@@ -61,7 +61,7 @@ $custVertical = $_REQUEST['vertical'];
 $data = array("CustomerName" => $custName, "CustomerDescription" => $custDesc, "CustomerAssessor" => $custAssessor, "CustomerVertical" => $custVertical);
 $data_string = json_encode($data);                                                                                   
 
-$ch = curl_init('http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/');
+$ch = curl_init('http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/');
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
 curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
@@ -79,7 +79,7 @@ $result = curl_exec($ch);
 
 #phpinfo();
 
-$response = file_get_contents('http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/');
+$response = file_get_contents('http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/');
 
 #var_dump($response);
 foreach (json_decode($response,true) as $customer) {

@@ -61,7 +61,7 @@ putMenu();
     <select name="customer" id="customer">
 			<?php
 			## Get customer list as drop down
-			$response = file_get_contents('http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/');
+			$response = file_get_contents('http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/');
 			foreach (json_decode($response,true) as $customer) {
 			print "<option value=" . $customer['CustomerId'] . ">" . $customer['CustomerName'] . "</option>";
 			}
@@ -82,26 +82,26 @@ if (isset($_REQUEST['customer'])) {
 print '<table><thead><tr><td>Application</td><td>Assessed?</td><td>Review</td></tr></thead><tbody>';
 ## Results go here
 $cust = $_REQUEST['customer'];
-$customerDetails = file_get_contents("http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$cust");
+$customerDetails = file_get_contents("http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$cust");
 #print_r($customerDetails);
 $nn = json_decode($customerDetails,true);
 #$name = $nn['CustomerName'];
 #print "<h3>Results for $name</h3>";
 
 ## Get the apps and results.
-$appsRaw = file_get_contents("http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$cust/applications/");
+$appsRaw = file_get_contents("http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$cust/applications/");
 $appsArr = json_decode($appsRaw,true);
 foreach ($appsArr as $app) {
 $appName = $app['Name'];
 $appId = $app['Id'];
 ## Get number of Assessments
-$assessments = file_get_contents("http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$cust/applications/$appId/assessments/");
+$assessments = file_get_contents("http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$cust/applications/$appId/assessments/");
 #print_r($assessments);
 $ass = json_decode($assessments,true);
 
 ## Get the ranking and effort
 
-$assResults = file_get_contents("http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$cust/applications/$appId/");
+$assResults = file_get_contents("http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$cust/applications/$appId/");
 
 print "<tr><td><a href=viewAssessment.php?app=" . $appId . "&assessment=" . $ass[0] . "&customer=" . $cust . ">" . $appName . "</a></td>";
 if (sizeof($ass) > 0) {
