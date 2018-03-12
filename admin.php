@@ -25,15 +25,10 @@
 				</nav>
 			</header>
 
-		<!-- Nav -->
-			<nav id="menu">
-				<ul class="links">
-					<li><a href="index.php">Home</a></liadmin>
-					<li><a href="admin.php">Admin</a></li>
-					<li><a href="results.php">Results</a></li>
-					<li><a href="http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/" target=_blank>Survey</a></li>
-				</ul>
-			</nav>
+<?php
+include("functions.php");
+putMenu();
+?>
 
 
 		<!-- Banner -->
@@ -51,7 +46,7 @@
 
 
 					</div>
-					<table><thead><tr><td>Customer Name</td><td>Customer Details</td><td>Applications</td><td>Edit</td></tr></thead><tbody>
+					<table><thead><tr><td>Customer Name</td><td>Customer Details</td><td>Edit</td></tr></thead><tbody>
 <?php
 
 # check if there is a customer to add
@@ -84,20 +79,14 @@ $result = curl_exec($ch);
 
 $response = file_get_contents('http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/');
 
-#print_r(json_decode($response));
 #var_dump($response);
 foreach (json_decode($response,true) as $customer) {
 print "<tr><td>" . $customer['CustomerName'] . "</td>";
 $CustomerId = $customer['CustomerId'];
 $CustomerDescription = $customer['CustomerDescription'];
 print "<td>" . $CustomerDescription . "</td>";
-print "<td>";
-## Get all the apps for that client
-$apps = file_get_contents("http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$CustomerId/applications/");
-#print_r($apps);
-foreach (json_decode($apps,true) as $app) {
-print $app['Name'] . "<br>" ;
-}
+#print "<td>";
+
 print '</td><td><a href=editCustomer.php?customer=' . $CustomerId .'><img src="images/edit.png"></a></td>';
 print "</tr>";
 }

@@ -23,15 +23,10 @@
 				</nav>
 			</header>
 
-		<!-- Nav -->
-			<nav id="menu">
-				<ul class="links">
-					<li><a href="index.php">Home</a></liadmin>
-					<li><a href="admin.php">Admin</a></li>
-					<li><a href="results.php">Results</a></li>
-					<li><a href="http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/" target=_blank>Survey</a></li>
-				</ul>
-			</nav>
+<?php
+include('functions.php');
+putMenu();
+?>
 
 		<!-- Banner -->
 			<section id="banner">
@@ -52,21 +47,14 @@
 						<section>
 							<div class="content">
 								<header>
-									<a href="admin.php" class="icon fa-vcard-o"><span class="label">Icon</span></a>
-									<h3>Administration</h3>
-								</header>
-								<p>Add/edit customers and applications.</p>
-							</div>
-						</section>
-						<section>
-							<div class="content">
-								<header>
 									<a href="http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/" target=_blank class="icon fa-files-o"><span class="label">Icon</span></a>
 									<h3>Run the assessment questionnaire.</h3>
 								</header>
-								<p>26 questions to start you on your way.</p>
+								<p>Questions to start you on your way.</p>
 							</div>
-						</section>
+						</section>						
+
+
 						<section>
 							<div class="content">
 								<header>
@@ -74,6 +62,15 @@
 									<h3>Results</h3>
 								</header>
 								<p>View and edit assessment results.</p>
+							</div>
+						</section>
+						<section>
+							<div class="content">
+								<header>
+									<a href="admin.php" class="icon fa-vcard-o"><span class="label">Icon</span></a>
+									<h3>Administration</h3>
+								</header>
+								<p>Add/edit customers and applications.</p>
 							</div>
 						</section>
 					</div>

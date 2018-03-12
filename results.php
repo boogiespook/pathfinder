@@ -38,15 +38,10 @@
 				</nav>
 			</header>
 
-		<!-- Nav -->
-			<nav id="menu">
-				<ul class="links">
-					<li><a href="index.php">Home</a></liadmin>
-					<li><a href="admin.php">Admin</a></li>
-					<li><a href="results.php">Results</a></li>
-					<li><a href="generic.php">Survey</a></li>
-				</ul>
-			</nav>
+<?php
+include("functions.php");
+putMenu();
+?>
 
 		<!-- Banner -->
 			<section id="banner2">
@@ -84,7 +79,7 @@
 	<?php
 if (isset($_REQUEST['customer'])) {
 
-print '<table><thead><tr><td>Application</td><td>Number of Assessments</td><td>View</td><td>Review</td></tr></thead><tbody>';
+print '<table><thead><tr><td>Application</td><td>Number of Assessments</td><td>Review</td></tr></thead><tbody>';
 ## Results go here
 $cust = $_REQUEST['customer'];
 $customerDetails = file_get_contents("http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$cust");
@@ -102,10 +97,9 @@ $appId = $app['Id'];
 ## Get number of Assessments
 $assessments = file_get_contents("http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$cust/applications/$appId/assessments/");
 #print_r($assessments);
-$ass = json_decode($assessments);
-print "<tr><td>" . $appName . "</td>";
+$ass = json_decode($assessments,true);
+print "<tr><td><a href=viewAssessment.php?app=" . $appId . "&assessment=" . $ass[0] . "&customer=" . $cust . ">" . $appName . "</a></td>";
 print "<td>" .  sizeof($ass)  . "</td>";
-print "<td>V</td>";
 print "<td>R</td>";
 print "</tr>";
 }

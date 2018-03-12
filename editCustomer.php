@@ -24,15 +24,10 @@
 				</nav>
 			</header>
 
-		<!-- Nav -->
-			<nav id="menu">
-				<ul class="links">
-					<li><a href="index.php">Home</a></liadmin>
-					<li><a href="admin.php">Admin</a></li>
-					<li><a href="results.php">Results</a></li>
-					<li><a href="http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/" target=_blank>Survey</a></li>
-				</ul>
-			</nav>
+<?php
+include("functions.php");
+putMenu();
+?>
 
 
 		<!-- Banner -->
@@ -53,8 +48,17 @@
 
 <?php
 $custId = $_REQUEST['customer'];
+# Get all the apps for that client
+$apps = file_get_contents("http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$custId/applications/");
+#print_r($apps);
+print "<table width=50%><thead><tr><td>Applications:</td><td>Delete (TBD)</td></tr></thead><tbody>";
+foreach (json_decode($apps,true) as $app) {
+print "<tr><td>" . $app['Name'] . "</td><td><img src=images/trash.png height=30px width=30px></td></tr>" ;
+}
+print "</tbody></table>";
 
 if (isset($_REQUEST['appName'])) {
+
 ## Add app to customer
 $appName = $_REQUEST['appName'];
 $appDesc = $_REQUEST['appDesc'];
@@ -83,6 +87,8 @@ $result = curl_exec($ch);
 
 
 ?>
+<hr>
+<h4>Add New Application</h4>
 <form id="myForm" action="#" method="post"> 
     Application Name: <input type="text" name="appName" /> 
     Application Description: <input type="text" name="appDesc" /> <br>
