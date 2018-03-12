@@ -56,8 +56,9 @@ print '<div id="message" class="message" style="display:none;">' . $_REQUEST['na
 $custName = $_REQUEST['name'];
 $custDesc = $_REQUEST['description'];
 $custAssessor = $_REQUEST['assessor'];
+$custVertical = $_REQUEST['vertical'];
 
-$data = array("CustomerName" => $custName, "CustomerDescription" => $custDesc, "CustomerAssessor" => $custAssessor);
+$data = array("CustomerName" => $custName, "CustomerDescription" => $custDesc, "CustomerAssessor" => $custAssessor, "CustomerVertical" => $custVertical);
 $data_string = json_encode($data);                                                                                   
 
 $ch = curl_init('http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/');
@@ -71,6 +72,7 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
                                                                                                                      
 $result = curl_exec($ch);                                                                      
 
+#var_dump($data_string);
 }
 
 # Get customer details from mongo
@@ -100,6 +102,28 @@ print "</tr>";
 <form id="myForm" action="#" method="post"> 
     Customer Name: <input type="text" name="name" /> 
     Customer Description: <input type="text" name="description"></input> 
+    Customer Line of Business:     <select name="vertical" id="vertical">
+<option value="Agriculture">Agriculture</option>
+<option value="Business Services">Business Services</option>
+<option value="Construction & Real Estate">Construction & Real Estate</option>
+<option value="Education">Education</option>
+<option value="Energy, Raw Materials & Utilities">Energy, Raw Materials & Utilities</option>
+<option value="Finance">Finance</option>
+<option value="Government">Government</option>
+<option value="Healthcare">Healthcare</option>
+<option value="IT">IT</option>
+<option value="Leisure & Hospitality">Leisure & Hospitality</option>
+<option value="Libraries">Libraries</option>
+<option value="Manufacturing">Manufacturing</option>
+<option value="Media & Internet">Media & Internet</option>
+<option value="Non-Profit & Professional Orgs.">Non-Profit & Professional Orgs.</option>
+<option value="Retail">Retail</option>
+<option value="Software">Software</option>
+<option value="Telecommunications">Telecommunications</option>
+<option value="Transportation">Transportation</option>
+
+</select>
+
     Customer Assessor: <input type="text" name="assessor"></input>
 <br>
     <input type="submit" value="Add" /> 
@@ -108,7 +132,6 @@ print "</tr>";
 
 <button>Add New Customer</button>
 </div>
-
 
 
 				</div>

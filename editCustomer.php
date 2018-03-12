@@ -48,6 +48,10 @@ putMenu();
 
 <?php
 $custId = $_REQUEST['customer'];
+
+# Get the customer details
+
+
 # Get all the apps for that client
 $apps = file_get_contents("http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$custId/applications/");
 #print_r($apps);

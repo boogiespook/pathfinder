@@ -25,7 +25,7 @@ $url = "http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/
 #print $url;
 $res = file_get_contents($url);
 $results = json_decode($res,true);
-
+if (sizeof($results) > 0) {
 foreach ($results['payload'] as $key => $value) {
 	if (ctype_upper($key) && $key != "ASSMENTNAME" && $key != "NOTES" && $key != "BUSPRIORITY") {
     print "Key: $key; Value: $value<br />\n";
@@ -33,6 +33,7 @@ foreach ($results['payload'] as $key => $value) {
     array_push($answers, $value);  
 
  }
+}
 }
 
 #print_r($questions);
@@ -89,22 +90,17 @@ function drawTopX() {
 				</nav>
 			</header>
 
-		<!-- Nav -->
-			<nav id="menu">
-				<ul class="links">
-					<li><a href="index.php">Home</a></liadmin>
-					<li><a href="admin.php">Admin</a></li>
-					<li><a href="results.php">Results</a></li>
-					<li><a href="http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/" target=_blank>Survey</a></li>
-				</ul>
-			</nav>
+<?php
+include("functions.php");
+putMenu();
+?>
 
 
 		<!-- Banner -->
 			<section id="banner2">
 				<div class="inner">
 					<h1>Pathfinder </h1>
-					<p>Assessment Results <i>(Work in Progress)</i></div>
+					<p>Assessment Results <i>(Very Much Work in Progress)</i></div>
 			</section>
 
 		<!-- Highlights -->

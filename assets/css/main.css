@@ -17,6 +17,28 @@ body {
    font-size: 20px;
 }
 
+.messageGreen {
+   color: green;
+   font-weight: bold;
+   font-size: 14px;
+}
+
+.messageRed {
+   color: red;
+   font-weight: bold;
+   font-size: 14px;
+}
+
+#leftReviewPane {
+   float: left;
+   width: 45%;
+}
+
+#rightReviewPane {
+   float: right;
+   width: 45%;
+}
+
 @media screen and (max-width: 480px) {
   html, body {
     min-width: 320px; } }

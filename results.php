@@ -79,14 +79,14 @@ putMenu();
 	<?php
 if (isset($_REQUEST['customer'])) {
 
-print '<table><thead><tr><td>Application</td><td>Number of Assessments</td><td>Review</td></tr></thead><tbody>';
+print '<table><thead><tr><td>Application</td><td>Assessed?</td><td>Review</td></tr></thead><tbody>';
 ## Results go here
 $cust = $_REQUEST['customer'];
 $customerDetails = file_get_contents("http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$cust");
 #print_r($customerDetails);
 $nn = json_decode($customerDetails,true);
-$name = $nn['CustomerName'];
-print "<h3>Results for $name</h3>";
+#$name = $nn['CustomerName'];
+#print "<h3>Results for $name</h3>";
 
 ## Get the apps and results.
 $appsRaw = file_get_contents("http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$cust/applications/");
@@ -98,9 +98,18 @@ $appId = $app['Id'];
 $assessments = file_get_contents("http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$cust/applications/$appId/assessments/");
 #print_r($assessments);
 $ass = json_decode($assessments,true);
+
+## Get the ranking and effort
+
+$assResults = file_get_contents("http://pathfinderapp-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$cust/applications/$appId/");
+
 print "<tr><td><a href=viewAssessment.php?app=" . $appId . "&assessment=" . $ass[0] . "&customer=" . $cust . ">" . $appName . "</a></td>";
-print "<td>" .  sizeof($ass)  . "</td>";
-print "<td>R</td>";
+if (sizeof($ass) > 0) {
+print "<td class='messageGreen' id='messageGreen'>Yes</td>";
+print "<td><a href=reviewAssessment.php?app=" . $appId . "&assessment=" . $ass[0] . "&customer=" . $cust . ">" . "<img src=images/review.png height=24px width=24px></td>";
+} else {
+print "<td class='messageRed' id='messageRed	'>No</td><td></td>";
+}
 print "</tr>";
 }
 
