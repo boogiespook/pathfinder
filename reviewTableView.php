@@ -32,7 +32,7 @@ $custId = $_REQUEST['customerId'];
             if (this.readyState === 4 && this.status === 200) {
             let data = JSON.parse(this.responseText);
             console.log(data);
-            // sortApplicationIds(data);
+            sortApplicationIds(data);
             }
         }
         xhttp.open("GET", url, true);
@@ -42,22 +42,32 @@ $custId = $_REQUEST['customerId'];
 
 
     function sortApplicationIds(data){
+        // console.log("hit");
+        var appsAndId = [[]];
         for (let i = 0; i < data.length; i++){
-            let appsAndId = [data[i]["Name"], ["Review"]];
+            if (data[i]["Review"] !== null){
+                appsAndId = [data[i]["Name"], data[i]["Id"], data[i]["Review"]];
+                // console.log("hit2", appsAndId);
+            }
         }
-        console.log(appsAndIds);
+        getRequestReview(appsAndId);
     }
 
 
-    function getRequestReview(url) {
+    function getRequestReview(appsAndId) {
         const xhttp = new XMLHttpRequest();
-        console.log(url);
+        let customerId = '<?php print $custId; ?>';
+        let applicationName = appsAndId[0];
+        let applicationId = appsAndId[1];
+        let reviewId = appsAndId[2];
+        let url = "http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/" + String(customerId) + "/applications/" + applicationId + "/review/" + reviewId + "/";
         let data = null
 
-        dataCallBack = xhttp.onreadystatechange = function() {
+        xhttp.onreadystatechange = function() {
             if (this.readyState === 4 && this.status === 200) {
             let data = JSON.parse(this.responseText);
-            return data;
+            console.log("Review", data);
+            sortReviewData(data);
             }
         }
         xhttp.open("GET", url, true);
@@ -65,15 +75,20 @@ $custId = $_REQUEST['customerId'];
         xhttp.send();
     }
 
+    function sortReviewData(data) {
 
-    function getApplications(){
+
+    }
+
+
+    function getApplications() {
         let customerId = '<?php print $custId; ?>';
         let url = "http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/" + String(customerId) + "/applications/";
         getRequestApp(url);
 
     }
 
-    function getDataSet(){
+    function getDataSet() {
             var dataSet = [
                 [ "adasd", "Refactor", "Large", "3"],
                 [ "Application 2", "Retire", "Medium", "5"],
