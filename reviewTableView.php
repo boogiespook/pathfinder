@@ -1,10 +1,14 @@
-<!DOCTYPE HTML>
+    <!DOCTYPE HTML>
 <!--
 	Industrious by TEMPLATED
 	templated.co @templatedco
 	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 -->
 <html>
+<?php
+$custId = $_REQUEST['customerId'];
+
+?>
 	<head>
 		<title>Pathfinder</title>
 		<meta charset="utf-8" />
@@ -12,6 +16,99 @@
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+
+    <script type="text/javascript">
+
+
+    function getRequestApp(url) {
+        const xhttp = new XMLHttpRequest();
+        console.log(url);
+        let data = null;
+
+        xhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+            let data = JSON.parse(this.responseText);
+            console.log(data);
+            // sortApplicationIds(data);
+            }
+        }
+        xhttp.open("GET", url, true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send();
+    }
+
+
+    function sortApplicationIds(data){
+        for (let i = 0; i < data.length; i++){
+            let appsAndId = [data[i]["Name"], ["Review"]];
+        }
+        console.log(appsAndIds);
+    }
+
+
+    function getRequestReview(url) {
+        const xhttp = new XMLHttpRequest();
+        console.log(url);
+        let data = null
+
+        dataCallBack = xhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+            let data = JSON.parse(this.responseText);
+            return data;
+            }
+        }
+        xhttp.open("GET", url, true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send();
+    }
+
+
+    function getApplications(){
+        let customerId = '<?php print $custId; ?>';
+        let url = "http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/" + String(customerId) + "/applications/";
+        getRequestApp(url);
+
+    }
+
+    function getDataSet(){
+            var dataSet = [
+                [ "adasd", "Refactor", "Large", "3"],
+                [ "Application 2", "Retire", "Medium", "5"],
+            ];
+        return dataSet;
+
+    }
+
+        
+
+    getApplications();
+
+    // var applicationName = getAppInfo();
+    // for (let i = 0; i < applicationName.length; i++){
+    //     console.log(applicationName[i]);
+    // }
+    // console.log("AppNames 2 ",applicationName);
+    // console.log("asdasd ", applicationName[0]);
+    // console.log(typeof applicationName);
+
+
+
+$(document).ready(function() {
+    $('#reviewTable').DataTable( {
+        data: getDataSet(),
+        columns: [
+            { title: "Application" },
+            { title: "Decision" },
+            { title: "Estimate" },
+            { title: "Business Priority" },
+        ]
+    } );
+} );
+</script>
+
 
 		<script>
 	  $( function() {
@@ -27,7 +124,11 @@
 	    $( "#salutation" ).selectmenu();
 	  } );
 	  </script>
+
+
+      
 	</head>
+
 	<body class="is-preload">
 
 		<!-- Header -->
@@ -38,8 +139,18 @@
 				</nav>
 			</header>
 
+
+
     <div class="table-responsive">  
- 
+    <section id="banner2">
+        <div class="inner">
+            <h1>Review Pane</h1>
+            <p>Review and view the results of all assessments.</div>
+    </section>
+
+
+    <table id="reviewTable" class="display" width="100%"></table>
+<!--  
         <table id="table_id" class="display">
             <thead>  
                 <tr>  
@@ -68,12 +179,17 @@
                 <td>9</td>
             </tr>
         </table>
+        <script>
+      $(document).ready( function () {
+      $('#table_id').DataTable();
+      } );
+      </script> -->
+
     </div>
 
 
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
