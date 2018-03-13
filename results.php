@@ -73,8 +73,12 @@ putMenu();
 	<input type="submit" value="Get Results">
 
 	</form>
-	
-
+	<?php
+	if (isset($_REQUEST['customer']))
+	{
+	print "<a href=reviewTableView.php?customerId=" . $_REQUEST['customer'] . ">Pane View</a>";
+	}
+    ?>
 	
 	<?php
 if (isset($_REQUEST['customer'])) {
