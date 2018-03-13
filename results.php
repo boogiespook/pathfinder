@@ -103,10 +103,17 @@ $ass = json_decode($assessments,true);
 
 $assResults = file_get_contents("http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$cust/applications/$appId/");
 
-print "<tr><td><a href=viewAssessment.php?app=" . $appId . "&assessment=" . $ass[0] . "&customer=" . $cust . ">" . $appName . "</a></td>";
+#print "<tr><td><a href=viewAssessment.php?app=" . $appId . "&assessment=" . $ass[0] . "&customer=" . $cust . ">" . $appName . "</a></td>";
+print "<tr><td>" . $appName . "</td>";
 if (sizeof($ass) > 0) {
 print "<td class='messageGreen' id='messageGreen'>Yes</td>";
+## check if a review has been done
+print_r($ass);
+if ($appsRaw['Review'] != null) {
 print "<td><a href=reviewAssessment.php?app=" . $appId . "&assessment=" . $ass[0] . "&customer=" . $cust . ">" . "<img src=images/review.png height=24px width=24px></td>";
+} else {
+print "<td></td>";
+}
 } else {
 print "<td class='messageRed' id='messageRed	'>No</td><td></td>";
 }
