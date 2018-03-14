@@ -106,10 +106,12 @@ $custId = $_REQUEST['customer'];
 
 
 
-
+        
         $(document).ready(function() {
         $('#reviewTable').DataTable( {
         data: dataSet,
+        retrieve: true,
+        paging: false,
         columns: [
             { title: "Application" },
             { title: "Decision" },
