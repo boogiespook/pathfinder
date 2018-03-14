@@ -73,7 +73,7 @@ putMenu();
 <div id="rightReviewPane">
 <h3>Red Hat Credits</h3>
 <ul>
-<li>Aidan Cammie</li>
+<li>Aidan Cammies</li>
 <li>Bryan Saunders</li>
 <li>Chris Jenkins</li>
 <li>Kerrie Laird</li>
