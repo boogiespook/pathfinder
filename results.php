@@ -56,16 +56,19 @@ putMenu();
 	</fieldset>
 <br>
 	<input type="submit" value="Get Results">
+
+
 <?php
 if (isset($_REQUEST['customer'])) {
 
 print "<a href=reviewTableView.php?customer=" . $_REQUEST['customer'] . "><button>Get Pane View</button></a>";
 }
 ?>
-	</form>	
+		</form>	
 	
 	<?php
 if (isset($_REQUEST['customer'])) {
+$totalAssessed = $totalUnassessed = $totalReviewed = $totalNotReviewed = 0;
 
 print '<table><thead><tr><td>Application</td><td>Assessed?</td><td>Review</td><td>Business Priority</td><td>Decision</td><td>Effort</td><td>Review Date</td></tr></thead><tbody>';
 ## Results go here
@@ -95,6 +98,7 @@ print "<tr><td>" . $appName . "</td>";
 
 ## check if app has any assessments
 if (sizeof($ass) > 0) {
+$totalAssessed++;
 ## Get the business priority from assessment
 $firstAssessment = $ass[0];
 #print "Asses ID $firstAssessment";	
@@ -111,10 +115,12 @@ $businessPriority = $a['payload']['BUSPRIORITY'];
 print "<td class='messageGreen' id='messageGreen'>Yes</td>";
 ## check if a review has been done
 if ($reviewId == null) {
+$totalNotReviewed++;
 print "<td><a href=reviewAssessment.php?app=" . $appId . "&assessment=" . $ass[0] . "&customer=" . $cust . ">" . "<img src=images/review.png height=24px width=24px></td>";
 ## fill out the blank columns
 print "<td>&nbsp</td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td>";
 } else {
+$totalReviewed++;
 ## Get the details of the review
 $data = file_get_contents("http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$cust/applications/$appId/review/$reviewId");
 $reviewDetails = json_decode($data,true);
@@ -132,15 +138,17 @@ print "<td>Complete<td>$businessPriority</td><td>$decision</td><td>$effort</td><
 } else {
 
 print "<td class='messageRed' id='messageRed'>No</td><td></td><td></td><td></td><td></td><td></td>";
+$totalUnassessed++;
 }
 print "</tr>";
 }
-
+print "<tr><td>Assessed</td><td>$totalAssessed</td><td>To Be Assessed</td><td>$totalUnassessed</td></tr>";
 print "	 </table>";
 }
 
 	 ?>
-	 
+	 </div>
+	 </div>
 					</div>
 					
 				</div>
