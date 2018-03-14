@@ -28,6 +28,8 @@ $custId = $_REQUEST['customer'];
         console.log(url);
         let data = null;
 
+        xhttp.open("GET", url, true);
+        xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.onreadystatechange = function() {
             if (this.readyState === 4 && this.status === 200) {
             data = JSON.parse(this.responseText);
@@ -36,8 +38,6 @@ $custId = $_REQUEST['customer'];
             sortApplicationIds(data);
             }
         }
-        xhttp.open("GET", url, true);
-        xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.send();
     }
 
@@ -47,7 +47,7 @@ $custId = $_REQUEST['customer'];
         var appsAndId = [];
         // var xhr = [];
         for (let i = 0; i < data.length; i++){
-            if (data[i]["Review"] !== null){
+            if (data[i]["Review"] != null){
                 appsAndId.push([data[i]["Name"], data[i]["Id"], data[i]["Review"]]);
                 // console.log("apps and id: ", appsAndId);
             }
@@ -58,11 +58,11 @@ $custId = $_REQUEST['customer'];
 
 
     function getRequestReview(appsAndId) {
-        const xhttp = new XMLHttpRequest();
+        let xhttp = new XMLHttpRequest();
         let customerId = '<?php print $custId; ?>';
         let data = null;
         let applicationName = '';
-        console.log(appsAndId);
+        // console.log(appsAndId);
 
         dataSet.pop()
 
@@ -84,24 +84,27 @@ $custId = $_REQUEST['customer'];
             xhr[i].setRequestHeader("Content-type", "application/json");
             xhr[i].onreadystatechange = function() {
                 if (this.readyState === 4 && this.status === 200) {
-                let data = JSON.parse(this.responseText);
-                console.log("return ", data);
-                sortReviewData(data, applicationName);
+                    let data = JSON.parse(this.responseText);
+                    console.log("return  ", data);
+                    dataSet.push([applicationName, data["ReviewDecision"]["rank"], data["WorkEffort"]["rank"], data["BusinessPriority"]]);
+                    sortReviewData(dataSet);
                 }
             }
+            // sortReviewData(dataSet);
             xhr[i].send();
         }
         
 
     }
 
-    function sortReviewData(data, applicationName) {
+    function sortReviewData(dataBoi) {
         // console.log("Data is here", data);
         // console.log("BP", data["BusinessPriority"]);
         // console.log("RD", data["ReviewDecision"]["rank"]);
         //var dataSet = [[]];
-        dataSet.push([applicationName, data["ReviewDecision"]["rank"], data["WorkEffort"]["rank"], data["BusinessPriority"]]);
-        console.log(dataSet);
+        // dataSet.push([applicationName, data["ReviewDecision"]["rank"], data["WorkEffort"]["rank"], data["BusinessPriority"]]);
+        console.log("full data set ius ");
+        console.log(dataBoi);
 
 
 
@@ -109,7 +112,7 @@ $custId = $_REQUEST['customer'];
         
         $(document).ready(function() {
         $('#reviewTable').DataTable( {
-        data: dataSet,
+        data: dataBoi,
         retrieve: true,
         paging: false,
         columns: [
