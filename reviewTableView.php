@@ -43,11 +43,11 @@ $custId = $_REQUEST['customer'];
 
     function sortApplicationIds(data){
         // console.log("hit");
-        var appsAndId = [[]];
+        var appsAndId = [];
         for (let i = 0; i < data.length; i++){
             if (data[i]["Review"] !== null){
-                appsAndId[i] = [data[i]["Name"], data[i]["Id"], data[i]["Review"]];
-                // console.log("apps and id: ", appsAndId);
+                appsAndId.push([data[i]["Name"], data[i]["Id"], data[i]["Review"]]);
+                console.log("apps and id: ", appsAndId);
             }
         }
         // console.log("apps and id: ", appsAndId);
@@ -60,6 +60,8 @@ $custId = $_REQUEST['customer'];
         let customerId = '<?php print $custId; ?>';
         let data = null;
         let applicationName = '';
+        console.log(appsAndId);
+
         dataSet.pop()
 
         xhttp.onreadystatechange = function() {
@@ -117,7 +119,7 @@ $custId = $_REQUEST['customer'];
     }
 
     var dataSet = [
-         [ "App", "Refactor", "Large", "3"],
+         [ "", "", "", ""],
      ];
 
         
