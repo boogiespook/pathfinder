@@ -39,7 +39,10 @@ putMenu();
 			<section class="wrapper">
 				<div class="inner">
 					<div class="highlights">
-						<form action="">
+						<div class="form">
+
+					
+<form action="">
 
   <fieldset>
     <label for="customer">Select a Customer</label>
@@ -56,15 +59,14 @@ putMenu();
 	</fieldset>
 <br>
 	<input type="submit" value="Get Results">
+	</form>	
+	<?php
+	if (isset($_REQUEST['customer'])) {
 
-
-<?php
-if (isset($_REQUEST['customer'])) {
-
-print "<a href=reviewTableView.php?customer=" . $_REQUEST['customer'] . "><button>Get Pane View</button></a>";
-}
-?>
-		</form>	
+	print "<a href=reviewTableView.php?customer=" . $_REQUEST['customer'] . "><button>Get Pane View</button></a>";
+	}
+	?>
+	</div>
 	
 	<?php
 if (isset($_REQUEST['customer'])) {
@@ -150,7 +152,6 @@ print "	 </table>";
 	 </div>
 	 </div>
 					</div>
-					
 				</div>
 				
 			</section>
