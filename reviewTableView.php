@@ -6,7 +6,7 @@
 -->
 <html>
 <?php
-$custId = $_REQUEST['customerId'];
+$custId = $_REQUEST['customer'];
 
 ?>
 	<head>
