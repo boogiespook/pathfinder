@@ -71,7 +71,12 @@ putMenu();
 	</fieldset>
 <br>
 	<input type="submit" value="Get Results">
+<?php
+if (isset($_REQUEST['customer'])) {
 
+print "<a href=reviewTableView.php?customer=" . $_REQUEST['customer'] . "><button>Get Pane View</button></a>";
+}
+?>
 	</form>
 	
 
@@ -79,14 +84,12 @@ putMenu();
 	<?php
 if (isset($_REQUEST['customer'])) {
 
-print '<table><thead><tr><td>Application</td><td>Assessed?</td><td>Review</td></tr></thead><tbody>';
+print '<table><thead><tr><td>Application</td><td>Assessed?</td><td>Review</td><td>Decision</td><td>Effort</td><td>Review Date</td></tr></thead><tbody>';
 ## Results go here
 $cust = $_REQUEST['customer'];
 $customerDetails = file_get_contents("http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$cust");
 #print_r($customerDetails);
 $nn = json_decode($customerDetails,true);
-#$name = $nn['CustomerName'];
-#print "<h3>Results for $name</h3>";
 
 ## Get the apps and results.
 $appsRaw = file_get_contents("http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$cust/applications/");
@@ -104,26 +107,42 @@ $ass = json_decode($assessments,true);
 
 $assResults = file_get_contents("http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$cust/applications/$appId/");
 $assResultsArray = json_decode($assResults,true);
-#print_r($assResultsArray);
 
-#print "<tr><td><a href=viewAssessment.php?app=" . $appId . "&assessment=" . $ass[0] . "&customer=" . $cust . ">" . $appName . "</a></td>";
 print "<tr><td>" . $appName . "</td>";
+
+## check if app has any assessments
 if (sizeof($ass) > 0) {
+## Get the business priority from assessment
+$firstAssessment = $ass[0];
+#print "Asses ID $firstAssessment";	
 print "<td class='messageGreen' id='messageGreen'>Yes</td>";
 ## check if a review has been done
 if ($reviewId == null) {
 print "<td><a href=reviewAssessment.php?app=" . $appId . "&assessment=" . $ass[0] . "&customer=" . $cust . ">" . "<img src=images/review.png height=24px width=24px></td>";
+## fill out the blank columns
+print "<td>&nbsp</td><td>&nbsp</td><td>&nbsp</td>";
 } else {
-print "<td>Reviewed</td>";
+## Get the details of the review
+$data = file_get_contents("http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$cust/applications/$appId/review/$reviewId");
+$reviewDetails = json_decode($data,true);
+#print_r($reviewDetails);
+$decision = ucfirst(strtolower($reviewDetails['ReviewDecision']['rank']));
+$effort = ucfirst(strtolower($reviewDetails['WorkEffort']['rank']));
+$notes = $reviewDetails['ReviewNotes'];
+$reviewDate = $reviewDetails['ReviewTimestamp'];
+# ucwords
+
+#print "<td><a href=viewApplication.php?customerId=$cust&applicationId=$appId&reviewId=$reviewId>Reviewed</a><td>$decision</td><td>$effort</td><td>$notes</td><td>$reviewDate</td>";
+print "<td>Complete<td>$decision</td><td>$effort</td><td>$reviewDate</td>";
+
 }
 } else {
-print "<td class='messageRed' id='messageRed	'>No</td><td></td>";
+print "<td class='messageRed' id='messageRed	'>No</td><td></td></td>";
 }
 print "</tr>";
 }
 
 print "	 </table>";
-
 }
 
 	 ?>
