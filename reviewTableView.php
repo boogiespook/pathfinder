@@ -59,16 +59,18 @@ $custId = $_REQUEST['customerId'];
         const xhttp = new XMLHttpRequest();
         let customerId = '<?php print $custId; ?>';
         let data = null;
+        let applicationName = '';
+        dataSet.pop()
 
         xhttp.onreadystatechange = function() {
             if (this.readyState === 4 && this.status === 200) {
             let data = JSON.parse(this.responseText);
             console.log("return ", data);
-            sortReviewData(data);
+            sortReviewData(data, applicationName);
             }
         }
         for (let i = 0; i < appsAndId.length; i++){
-            let applicationName = appsAndId[i][0];
+            applicationName = appsAndId[i][0];
             let applicationId = appsAndId[i][1];
             let reviewId = appsAndId[i][2];
             let url = "http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/" + String(customerId) + "/applications/" + applicationId + "/review/" + reviewId + "/";
@@ -80,12 +82,12 @@ $custId = $_REQUEST['customerId'];
 
     }
 
-    function sortReviewData(data) {
+    function sortReviewData(data, applicationName) {
         // console.log("Data is here", data);
         // console.log("BP", data["BusinessPriority"]);
         // console.log("RD", data["ReviewDecision"]["rank"]);
         //var dataSet = [[]];
-        dataSet.push(["App", data["ReviewDecision"]["rank"], data["WorkEffort"]["rank"], data["BusinessPriority"]]);
+        dataSet.push([applicationName, data["ReviewDecision"]["rank"], data["WorkEffort"]["rank"], data["BusinessPriority"]]);
         console.log(dataSet);
 
 
@@ -115,8 +117,7 @@ $custId = $_REQUEST['customerId'];
     }
 
     var dataSet = [
-         [ "adasd", "Refactor", "Large", "3"],
-         [ "Application 2", "Retire", "Medium", "5"],
+         [ "App", "Refactor", "Large", "3"],
      ];
 
         
