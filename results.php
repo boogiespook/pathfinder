@@ -39,10 +39,7 @@ putMenu();
 			<section class="wrapper">
 				<div class="inner">
 					<div class="highlights">
-						<div class="form">
-
-					
-<form action="">
+						<form action="">
 
   <fieldset>
     <label for="customer">Select a Customer</label>
@@ -59,9 +56,6 @@ putMenu();
 	</fieldset>
 <br>
 	<input type="submit" value="Get Results">
-	</form>	
-	<?php
-	if (isset($_REQUEST['customer'])) {
 
 
 <?php
@@ -160,6 +154,7 @@ print "	 </table>";
 	 </div>
 	 </div>
 					</div>
+					
 				</div>
 				
 			</section>
