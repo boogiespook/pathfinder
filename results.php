@@ -130,7 +130,8 @@ print "<td>Complete<td>$businessPriority</td><td>$decision</td><td>$effort</td><
 
 }
 } else {
-print "<a href='http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/' target=_blank><td class='messageRed' id='messageRed>No</a></td><td></td><td></td><td></td><td></td><td></td>";
+#<a href='http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/' target=_blank>
+print "<td class='messageRed' id='messageRed'>No</td><td></td><td></td><td></td><td></td><td></td>";
 }
 print "</tr>";
 }
