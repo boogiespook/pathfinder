@@ -66,13 +66,7 @@ $custId = $_REQUEST['customer'];
 
         dataSet.pop()
 
-        // xhttp.onreadystatechange = function() {
-        //     if (this.readyState === 4 && this.status === 200) {
-        //     let data = JSON.parse(this.responseText);
-        //     console.log("return ", data);
-        //     sortReviewData(data, applicationName);
-        //     }
-        // }
+
         let xhr = [];
         for (let i = 0; i < appsAndId.length; i++){
             let applicationName = appsAndId[i][0];
@@ -90,7 +84,6 @@ $custId = $_REQUEST['customer'];
                     sortReviewData(dataSet);
                 }
             }
-            // sortReviewData(dataSet);
             xhr[i].send();
         }
         
@@ -98,11 +91,6 @@ $custId = $_REQUEST['customer'];
     }
 
     function sortReviewData(dataBoi) {
-        // console.log("Data is here", data);
-        // console.log("BP", data["BusinessPriority"]);
-        // console.log("RD", data["ReviewDecision"]["rank"]);
-        //var dataSet = [[]];
-        // dataSet.push([applicationName, data["ReviewDecision"]["rank"], data["WorkEffort"]["rank"], data["BusinessPriority"]]);
         console.log("full data set ius ");
         console.log(dataBoi);
 
@@ -139,30 +127,9 @@ $custId = $_REQUEST['customer'];
      ];
 
         
-
+    // Launches JS scripts
     getApplications();
 
-    // var applicationName = getAppInfo();
-    // for (let i = 0; i < applicationName.length; i++){
-    //     console.log(applicationName[i]);
-    // }
-    // console.log("AppNames 2 ",applicationName);
-    // console.log("asdasd ", applicationName[0]);
-    // console.log(typeof applicationName);
-
-
-
-// $(document).ready(function() {
-//     $('#reviewTable').DataTable( {
-//         data: dataSet,
-//         columns: [
-//             { title: "Application" },
-//             { title: "Decision" },
-//             { title: "Estimate" },
-//             { title: "Business Priority" },
-//         ]
-//     } );
-// } );
 </script>
 
 
@@ -206,40 +173,6 @@ $custId = $_REQUEST['customer'];
 
 
     <table id="reviewTable" class="display" width="100%"></table>
-<!--  
-        <table id="table_id" class="display">
-            <thead>  
-                <tr>  
-                    <td><b>Application Name</b></td>  
-                    <td><b>Decision</b></td>  
-                    <td><b>Estimate</b></td>  
-                    <td><b>Business Priority</b></td>  
-                </tr>  
-            </thead>  
-            <tr>
-                <td>My App 1</td>
-                <td>Refactor</td>
-                <td>Large</td>
-                <td>6</td>
-            </tr>
-            <tr>
-                <td>My App 2</td>
-                <td>Retire</td>
-                <td>Large</td>
-                <td>3</td>
-            </tr>
-            <tr>
-                <td>My App 3</td>
-                <td>Rehost</td>
-                <td>Small</td>
-                <td>9</td>
-            </tr>
-        </table>
-        <script>
-      $(document).ready( function () {
-      $('#table_id').DataTable();
-      } );
-      </script> -->
 
     </div>
 
