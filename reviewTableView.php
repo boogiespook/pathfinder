@@ -46,10 +46,11 @@ $custId = $_REQUEST['customerId'];
         var appsAndId = [[]];
         for (let i = 0; i < data.length; i++){
             if (data[i]["Review"] !== null){
-                appsAndId = [data[i]["Name"], data[i]["Id"], data[i]["Review"]];
-                // console.log("hit2", appsAndId);
+                appsAndId[i] = [data[i]["Name"], data[i]["Id"], data[i]["Review"]];
+                // console.log("apps and id: ", appsAndId);
             }
         }
+        // console.log("apps and id: ", appsAndId);
         getRequestReview(appsAndId);
     }
 
@@ -57,26 +58,51 @@ $custId = $_REQUEST['customerId'];
     function getRequestReview(appsAndId) {
         const xhttp = new XMLHttpRequest();
         let customerId = '<?php print $custId; ?>';
-        let applicationName = appsAndId[0];
-        let applicationId = appsAndId[1];
-        let reviewId = appsAndId[2];
-        let url = "http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/" + String(customerId) + "/applications/" + applicationId + "/review/" + reviewId + "/";
-        let data = null
+        let data = null;
 
         xhttp.onreadystatechange = function() {
             if (this.readyState === 4 && this.status === 200) {
             let data = JSON.parse(this.responseText);
-            console.log("Review", data);
+            console.log("return ", data);
             sortReviewData(data);
             }
         }
-        xhttp.open("GET", url, true);
-        xhttp.setRequestHeader("Content-type", "application/json");
-        xhttp.send();
+        for (let i = 0; i < appsAndId.length; i++){
+            let applicationName = appsAndId[i][0];
+            let applicationId = appsAndId[i][1];
+            let reviewId = appsAndId[i][2];
+            let url = "http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/" + String(customerId) + "/applications/" + applicationId + "/review/" + reviewId + "/";
+            xhttp.open("GET", url, true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.send();
+        }
+        
+
     }
 
     function sortReviewData(data) {
+        // console.log("Data is here", data);
+        // console.log("BP", data["BusinessPriority"]);
+        // console.log("RD", data["ReviewDecision"]["rank"]);
+        //var dataSet = [[]];
+        dataSet.push(["App", data["ReviewDecision"]["rank"], data["WorkEffort"]["rank"], data["BusinessPriority"]]);
+        console.log(dataSet);
 
+
+
+
+
+        $(document).ready(function() {
+    $('#reviewTable').DataTable( {
+        data: dataSet,
+        columns: [
+            { title: "Application" },
+            { title: "Decision" },
+            { title: "Estimate" },
+            { title: "Business Priority" },
+        ]
+    } );
+} );
 
     }
 
@@ -88,14 +114,10 @@ $custId = $_REQUEST['customerId'];
 
     }
 
-    function getDataSet() {
-            var dataSet = [
-                [ "adasd", "Refactor", "Large", "3"],
-                [ "Application 2", "Retire", "Medium", "5"],
-            ];
-        return dataSet;
-
-    }
+    var dataSet = [
+         [ "adasd", "Refactor", "Large", "3"],
+         [ "Application 2", "Retire", "Medium", "5"],
+     ];
 
         
 
@@ -111,17 +133,17 @@ $custId = $_REQUEST['customerId'];
 
 
 
-$(document).ready(function() {
-    $('#reviewTable').DataTable( {
-        data: getDataSet(),
-        columns: [
-            { title: "Application" },
-            { title: "Decision" },
-            { title: "Estimate" },
-            { title: "Business Priority" },
-        ]
-    } );
-} );
+// $(document).ready(function() {
+//     $('#reviewTable').DataTable( {
+//         data: dataSet,
+//         columns: [
+//             { title: "Application" },
+//             { title: "Decision" },
+//             { title: "Estimate" },
+//             { title: "Business Priority" },
+//         ]
+//     } );
+// } );
 </script>
 
 
