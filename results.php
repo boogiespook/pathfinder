@@ -63,10 +63,19 @@ putMenu();
 	<?php
 	if (isset($_REQUEST['customer'])) {
 
-	print "<a href=reviewTableView.php?customer=" . $_REQUEST['customer'] . "><button>Get Pane View</button></a>";
-	}
-	?>
-	</div>
+
+<?php
+if (isset($_REQUEST['customer'])) {
+
+print "<a href=reviewTableView.php?customer=" . $_REQUEST['customer'] . "><button>Get Pane View</button></a>";
+}
+?>
+    <div id="piechartAss" style="width: 500px; height: 500px; float: left;"></div>
+<!--     <div id="piechartReview" style="width: 300px; height: 300px;"></div> -->
+
+		</form>	
+
+
 	
 	<?php
 if (isset($_REQUEST['customer'])) {
@@ -144,7 +153,6 @@ $totalUnassessed++;
 }
 print "</tr>";
 }
-print "<tr><td>Assessed</td><td>$totalAssessed</td><td>To Be Assessed</td><td>$totalUnassessed</td></tr>";
 print "	 </table>";
 }
 
@@ -165,7 +173,58 @@ print "	 </table>";
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
          <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-         
+         <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script> 
+<script type="text/javascript"> 
+    google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Assessed',     <?php echo $totalAssessed; ?>],
+          ['Not Assessed',      <?php echo $totalUnassessed; ?>]
+        ]);
+
+        var options = {
+			backgroundColor: 'transparent',
+         title: 'Assessment Status',
+          pieHole: 0.2,
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechartAss'));
+
+        chart.draw(data, options);
+      }
+ 
+</script> 
+
+<script type="text/javascript"> 
+    google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Assessed',     <?php echo $totalReviewed; ?>],
+          ['Not Assessed',      <?php echo $totalNotReviewed; ?>]
+        ]);
+
+        var options = {
+			backgroundColor: 'transparent',
+         title: 'Review Status',
+          pieHole: 0.2,
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechartReview'));
+
+        chart.draw(data, options);
+      }
+ 
+</script> 
 
 
 	</body>

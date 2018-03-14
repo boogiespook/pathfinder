@@ -24,13 +24,14 @@ $custId = $_REQUEST['customer'];
 
 
     function getRequestApp(url) {
-        const xhttp = new XMLHttpRequest();
+        var xhttp = new XMLHttpRequest();
         console.log(url);
         let data = null;
 
         xhttp.onreadystatechange = function() {
             if (this.readyState === 4 && this.status === 200) {
-            let data = JSON.parse(this.responseText);
+            data = JSON.parse(this.responseText);
+            console.log("data is 8 ");
             console.log(data);
             sortApplicationIds(data);
             }
@@ -42,15 +43,16 @@ $custId = $_REQUEST['customer'];
 
 
     function sortApplicationIds(data){
-        // console.log("hit");
+        console.log("data length " + data.length);
         var appsAndId = [];
+        // var xhr = [];
         for (let i = 0; i < data.length; i++){
             if (data[i]["Review"] !== null){
                 appsAndId.push([data[i]["Name"], data[i]["Id"], data[i]["Review"]]);
-                console.log("apps and id: ", appsAndId);
+                // console.log("apps and id: ", appsAndId);
             }
         }
-        // console.log("apps and id: ", appsAndId);
+        console.log("apps and id: ", appsAndId);
         getRequestReview(appsAndId);
     }
 
@@ -64,21 +66,30 @@ $custId = $_REQUEST['customer'];
 
         dataSet.pop()
 
-        xhttp.onreadystatechange = function() {
-            if (this.readyState === 4 && this.status === 200) {
-            let data = JSON.parse(this.responseText);
-            console.log("return ", data);
-            sortReviewData(data, applicationName);
-            }
-        }
+        // xhttp.onreadystatechange = function() {
+        //     if (this.readyState === 4 && this.status === 200) {
+        //     let data = JSON.parse(this.responseText);
+        //     console.log("return ", data);
+        //     sortReviewData(data, applicationName);
+        //     }
+        // }
+        let xhr = [];
         for (let i = 0; i < appsAndId.length; i++){
             applicationName = appsAndId[i][0];
             let applicationId = appsAndId[i][1];
             let reviewId = appsAndId[i][2];
             let url = "http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/" + String(customerId) + "/applications/" + applicationId + "/review/" + reviewId + "/";
-            xhttp.open("GET", url, true);
-            xhttp.setRequestHeader("Content-type", "application/json");
-            xhttp.send();
+            xhr[i] = new XMLHttpRequest();
+            xhr[i].open("GET", url, true);
+            xhr[i].setRequestHeader("Content-type", "application/json");
+            xhr[i].onreadystatechange = function() {
+                if (this.readyState === 4 && this.status === 200) {
+                let data = JSON.parse(this.responseText);
+                console.log("return ", data);
+                sortReviewData(data, applicationName);
+                }
+            }
+            xhr[i].send();
         }
         
 
@@ -97,7 +108,7 @@ $custId = $_REQUEST['customer'];
 
 
         $(document).ready(function() {
-    $('#reviewTable').DataTable( {
+        $('#reviewTable').DataTable( {
         data: dataSet,
         columns: [
             { title: "Application" },
