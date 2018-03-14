@@ -57,13 +57,13 @@ putMenu();
 <br>
 	<input type="submit" value="Get Results">
 
-
 <?php
 if (isset($_REQUEST['customer'])) {
 
-print "<a href=reviewTableView.php?customer=" . $_REQUEST['customer'] . "><button>Get Pane View</button></a>";
+print "<a href=reviewTableView.php?customer=" . $_REQUEST['customer'] . "><button type='button'>Get Pane View</button></a>";
 }
 ?>
+
     <div id="piechartAss" style="width: 500px; height: 500px; float: left;"></div>
 <!--     <div id="piechartReview" style="width: 300px; height: 300px;"></div> -->
 

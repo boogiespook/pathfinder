@@ -75,7 +75,7 @@ $custId = $_REQUEST['customer'];
         // }
         let xhr = [];
         for (let i = 0; i < appsAndId.length; i++){
-            applicationName = appsAndId[i][0];
+            let applicationName = appsAndId[i][0];
             let applicationId = appsAndId[i][1];
             let reviewId = appsAndId[i][2];
             let url = "http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/" + String(customerId) + "/applications/" + applicationId + "/review/" + reviewId + "/";
