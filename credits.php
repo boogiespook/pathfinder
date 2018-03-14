@@ -46,7 +46,7 @@ putMenu();
 
 
 					</div>
-
+<div id="leftReviewPane">
 
 <h3>Image Credits</h3>
 
@@ -68,7 +68,23 @@ putMenu();
 <p>Courtesy of https://templated.co/industrious. Released for free under the Creative Commons Attribution 3.0 license (templated.co/license) </p>
 </div>
 
+</div>
 
+<div id="rightReviewPane">
+<h3>Red Hat Credits</h3>
+<ul>
+<li>Aidan Cammie</li>
+<li>Bryan Saunders</li>
+<li>Chris Jenkins</li>
+<li>Kerrie Laird</li>
+<li>Malcolm Herbert</li>
+<li>Noel O'Conner</li>
+<li>Rob Harris</li>
+<li>Roger Nunn</li>
+<li>Scott McCarty</li>
+<li>Trevor Quinn</li>
+</ul>
+</div>
 
 				</div>
 			</section>
