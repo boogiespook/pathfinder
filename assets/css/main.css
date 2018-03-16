@@ -738,9 +738,9 @@ table.alt tbody tr td {
   .highlights > :nth-child(3n) {
     width: calc(33.3333333333% + -0.5rem); }
   .highlights .content {
-    border-radius: 4px;
+    border-radius: 2px;
     height: 100%;
-    padding: 3rem;
+    padding: 0rem;
     text-align: center; }
     .highlights .content .icon {
       font-size: 5rem; }
@@ -2143,7 +2143,9 @@ ul.icons {
   background-position: bottom;
   background-repeat: no-repeat;
   background-size: cover;
-  position: relative;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   text-align: center;
   z-index: 1; }
   #cta input, #cta select, #cta textarea {
