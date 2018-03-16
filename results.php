@@ -79,7 +79,7 @@ print "<a href=reviewTableView.php?customer=" . $_REQUEST['customer'] . "><butto
 if (isset($_REQUEST['customer'])) {
 $totalAssessed = $totalUnassessed = $totalReviewed = $totalNotReviewed = 0;
 
-print '<table><thead><tr><td>Application</td><td>Assessed?</td><td>Review</td><td>Business Priority</td><td>Decision</td><td>Effort</td><td>Review Date</td></tr></thead><tbody>';
+print '<table id="myTable"  class="tablesorter"><thead><tr><th>Application</th><th>Assessed?</th><th>Review</th><th>Business Priority</th><th>Decision</th><th>Effort</th><th>Review Date</th></tr></thead><tbody>';
 ## Results go here
 $cust = $_REQUEST['customer'];
 $customerDetails = file_get_contents("http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$cust");
@@ -155,7 +155,9 @@ print "	 </table>";
 }
 
 	 ?>
+
 	 </div>
+
 	 </div>
 					</div>
 					
@@ -167,12 +169,22 @@ print "	 </table>";
 
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.tablesorter.js"></script>
+<!-- 			<script src="assets/js/jquery.tablesorter.pager.js"></script> -->
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
          <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
          <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script> 
+ 
+  <script type="text/javascript" >
+$(document).ready(function() 
+    { 
+        $("#myTable").tablesorter(); 
+    } 
+); 
+</script>
 <script type="text/javascript"> 
     google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
@@ -225,6 +237,7 @@ print "	 </table>";
  
 </script> 
 
+	 
 
 	</body>
 </html>
