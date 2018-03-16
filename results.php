@@ -80,7 +80,7 @@ print "<a href=reviewTableView.php?customer=" . $_REQUEST['customer'] . "><butto
 if (isset($_REQUEST['customer'])) {
 $totalAssessed = $totalUnassessed = $totalReviewed = $totalNotReviewed = 0;
 
-print '<table id="myTable"  class="tablesorter"><thead><tr><th>Application</th><th>Assessed?</th><th>Review</th><th>Business Priority</th><th>Decision</th><th>Effort</th><th>Review Date</th></tr></thead><tbody>';
+print '<table id="myTable"  class="tablesorter"><thead><tr><th>Application</th><th>Assessed?</th><th>Review</th><th>Business Priority</th><th>Decision</th><th>Effort</th><th>Review Date</th><th>View Details</th></tr></thead><tbody>';
 ## Results go here
 $cust = $_REQUEST['customer'];
 $customerDetails = file_get_contents("http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$cust");
@@ -128,7 +128,7 @@ if ($reviewId == null) {
 $totalNotReviewed++;
 print "<td><a href=reviewAssessment.php?app=" . $appId . "&assessment=" . $ass[0] . "&customer=" . $cust . ">" . "<img src=images/review.png height=24px width=24px></td>";
 ## fill out the blank columns
-print "<td>&nbsp</td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td>";
+print "<td>&nbsp</td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td>";
 } else {
 $totalReviewed++;
 ## Get the details of the review
@@ -137,17 +137,26 @@ $reviewDetails = json_decode($data,true);
 #print_r($reviewDetails);
 $decision = ucfirst(strtolower($reviewDetails['ReviewDecision']['rank']));
 $effort = ucfirst(strtolower($reviewDetails['WorkEffort']['rank']));
+$notes = "";
 $notes = $reviewDetails['ReviewNotes'];
 $reviewDate = $reviewDetails['ReviewTimestamp'];
-# ucwords
+
+#print "Notes: $notes <br>";
+
+#if (!empty($notes)) {
+#$notesPart = "<div class='flip' id='flip'>Click for notes</div><div class='panel' id='panel'><p>" . $notes . "</p></div>";
+#} else {
+##$notesPart = "None";
+#$notesPart = "<div class='panel' id='panel'><p></p></div>";
+#}
 
 #print "<td><a href=viewApplication.php?customerId=$cust&applicationId=$appId&reviewId=$reviewId>Reviewed</a><td>$decision</td><td>$effort</td><td>$notes</td><td>$reviewDate</td>";
-print "<td>Complete<td>$businessPriority</td><td>$decision</td><td>$effort</td><td>$reviewDate</td>";
+print "<td>Complete<td>$businessPriority</td><td>$decision</td><td>$effort</td><td>$reviewDate</td><td><img src='images/details.png'></td>";
 
 }
 } else {
 
-print "<td class='messageRed' id='messageRed'><a href='http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/' target=_blank>No</td><td></td><td></td><td></td><td></td><td></td>";
+print "<td class='messageRed' id='messageRed'><a href='http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/' target=_blank>No</td><td></td><td></td><td></td><td></td><td></td><td></td>";
 $totalUnassessed++;
 }
 print "</tr>";
@@ -185,6 +194,8 @@ $(document).ready(function()
         $("#myTable").tablesorter(); 
     } 
 ); 
+
+
 </script>
 <script type="text/javascript"> 
     google.charts.load('current', {'packages':['corechart']});
