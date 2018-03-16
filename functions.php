@@ -10,7 +10,6 @@ print '		<!-- Nav -->
 					<li><a href="credits.php">Credits</a></li>
 				</ul>
 			</nav>';
-
 }
 
 function getCustomerName($custId) {

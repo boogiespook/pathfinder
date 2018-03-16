@@ -26,13 +26,17 @@
 <?php
 include("functions.php");
 putMenu();
+
+if (isset($_REQUEST['customer'])) {
+$custId = $_REQUEST['customer'];
+}
 ?>
 
 		<!-- Banner -->
 			<section id="banner2">
 				<div class="inner">
-					<h1>Pathfinder Results</h1>
-					<p>Review and view the results of an assessment.</div>
+					<h1><?php getCustomerName($custId); ?> Results</h1>
+					<p>View the results of an assessment and review output.</div>
 			</section>
 
 		<!-- Highlights -->
@@ -57,15 +61,15 @@ putMenu();
 <br>
 	<input type="submit" value="Get Results">
 
+
 <?php
 if (isset($_REQUEST['customer'])) {
 
 print "<a href=reviewTableView.php?customer=" . $_REQUEST['customer'] . "><button type='button'>Get Pane View</button></a>";
 }
 ?>
-
     <div id="piechartAss" style="width: 500px; height: 500px; float: left;"></div>
-<!--     <div id="piechartReview" style="width: 300px; height: 300px;"></div> -->
+<!--      <div id="piechartReview" style="width: 300px; height: 300px;"></div>  -->
 
 		</form>	
 
@@ -142,7 +146,7 @@ print "<td>Complete<td>$businessPriority</td><td>$decision</td><td>$effort</td><
 }
 } else {
 
-print "<td class='messageRed' id='messageRed'>No</td><td></td><td></td><td></td><td></td><td></td>";
+print "<td class='messageRed' id='messageRed'><a href='http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/' target=_blank>No</td><td></td><td></td><td></td><td></td><td></td>";
 $totalUnassessed++;
 }
 print "</tr>";

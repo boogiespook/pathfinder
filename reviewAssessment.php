@@ -61,10 +61,17 @@ $(document).ready(function(){
 
 if (isset($_REQUEST['reviewSubmitted'])) {
 #phpinfo();
-$now = date("Y-m-d h:i:sa");
+$now = date("Y-m-d");
 $data = array( "AssessmentId" => $_REQUEST['assessment'], "customer" => $_REQUEST['customer'], "app" => $_REQUEST['app'], "ReviewDecision" => $_REQUEST['proposedAction'], "WorkEffort" => $_REQUEST['effortEstimate'], "ReviewNotes" => $_REQUEST['supportingNotes']) ;
 
-$bodyData = array(  "AssessmentId" => $_REQUEST['assessment'], "ReviewTimestamp" => "$now", "BusinessPriority" => '1', "WorkPriority" => "3", "ReviewDecision" => array("rank" => $_REQUEST['proposedAction']), "WorkEffort" => array("rank" => $_REQUEST['effortEstimate']), "ReviewNotes" => $_REQUEST['supportingNotes']) ;
+$details = array( "assessment" => $_REQUEST['assessment'], "customer" => $_REQUEST['customer'], "app" => $_REQUEST['app']) ;
+## get all the results for that assessment
+$answersData = file_get_contents("http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/" . $details['customer'] . "/applications/" . $details['app'] . "/assessments/" . $details['assessment']);
+$answers = json_decode($answersData, true);
+$businessPriority = $answers['payload']['BUSPRIORITY'];
+
+
+$bodyData = array(  "AssessmentId" => $_REQUEST['assessment'], "ReviewTimestamp" => "$now", "BusinessPriority" => "$businessPriority", "WorkPriority" => "3", "ReviewDecision" => array("rank" => $_REQUEST['proposedAction']), "WorkEffort" => array("rank" => $_REQUEST['effortEstimate']), "ReviewNotes" => $_REQUEST['supportingNotes']) ;
 #$reviewType = array("BusinessPriority" => '1', )
 
 $data_string = json_encode($bodyData);                                                                                   
@@ -132,6 +139,7 @@ $details = array( "assessment" => $_REQUEST['assessment'], "customer" => $_REQUE
 ## get all the results for that assessment
 $answersData = file_get_contents("http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/" . $details['customer'] . "/applications/" . $details['app'] . "/assessments/" . $details['assessment']);
 $answers = json_decode($answersData, true);
+$businessPriority = $answers['payload']['BUSPRIORITY'];
 
 $appRating = array("RED" => 0, "AMBER" => 0, "GREEN" => 0, "UNKNOWN" => 0);
 $questionRating = array("RED" => "", "AMBER" => "", "GREEN" => "", "UNKNOWN" => "");
@@ -235,13 +243,15 @@ print "<tr><td>" . $allQuestions[$i] . "</td><td>" . $allAnswers[$i] . "</td><td
 <br>
 <input type="submit" value="Submit Review">
 </form>
-
+<a href="results.php?customer=<?php echo $_REQUEST['customer'] ?>"><button>Return to Results</button></a>
 </div>
 
 </section>
 
 
 <script type="text/javascript" >
+
+
 $(document).ready(function () {
   var bubbleChart = new d3.svg.BubbleChart({
     supportResponsive: true,
@@ -255,6 +265,7 @@ $(document).ready(function () {
     //intersectDelta: use @default
     //intersectInc: use @default
     //circleColor: use @default
+
     data: {
       items: [
         <?php echo $bubbleData;  ?>
@@ -305,7 +316,7 @@ $(document).ready(function () {
             },
             {// Line #1
               style: {"font-size": "30px"},
-              attr: {dy: "40px"}
+              attr: {dy: "40px"},
             }
           ]
         }
@@ -313,10 +324,6 @@ $(document).ready(function () {
   });
 });
 </script>  
-
-
-
-
 
   <script src="http://phuonghuynh.github.io/js/bower_components/d3/d3.min.js"></script>
   <script src="http://phuonghuynh.github.io/js/bower_components/d3-transform/src/d3-transform.js"></script>

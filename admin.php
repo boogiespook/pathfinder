@@ -35,7 +35,7 @@ putMenu();
 			<section id="banner2">
 				<div class="inner">
 					<h1>Pathfinder Admin</h1>
-					<p>Create customers and create applications.</div>
+					<p>Create customers and applications.</div>
 			</section>
 
 		<!-- Highlights -->

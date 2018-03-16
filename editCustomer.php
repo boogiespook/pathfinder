@@ -27,14 +27,15 @@
 <?php
 include("functions.php");
 putMenu();
+$custId = $_REQUEST['customer'];
 ?>
 
 
 		<!-- Banner -->
 			<section id="banner2">
 				<div class="inner">
-					<h1>Pathfinder Admin</h1>
-					<p>Add Applications to customer</div>
+					<h1><?php getCustomerName($custId); ?> Admin</h1>
+					<p>Add Applications</div>
 			</section>
 
 		<!-- Highlights -->
@@ -47,7 +48,7 @@ putMenu();
 					</div>
 
 <?php
-$custId = $_REQUEST['customer'];
+
 
 # Get the customer details
 
@@ -55,7 +56,7 @@ $custId = $_REQUEST['customer'];
 # Get all the apps for that client
 $apps = file_get_contents("http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$custId/applications/");
 #print_r($apps);
-print "<table width=50%><thead><tr><td>Applications:</td><td>Delete (TBD)</td></tr></thead><tbody>";
+print "<table width=50%><thead><tr><td>Applications</td><td>Delete App</td></tr></thead><tbody>";
 foreach (json_decode($apps,true) as $app) {
 print "<tr><td>" . $app['Name'] . "</td><td><img src=images/trash.png height=30px width=30px></td></tr>" ;
 }
@@ -91,11 +92,11 @@ $result = curl_exec($ch);
 
 
 ?>
-<hr>
+
 <h4>Add New Application</h4>
 <form id="myForm" action="#" method="post"> 
-    Application Name: <input type="text" name="appName" /> 
-    Application Description: <input type="text" name="appDesc" /> <br>
+    Application Name <input type="text" name="appName" /> 
+    Application Description <input type="text" name="appDesc" /> <br>
     <input type="submit" value="Add" /> 
 </form>
 <a href="admin.php"><button>Back To Admin</button></a>
