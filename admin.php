@@ -12,6 +12,8 @@
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+      <link rel="stylesheet" type="text/css" href="http://overpass-30e2.kxcdn.com/overpass.css"/>
+
 				<!-- Scripts -->
 
 	</head>
@@ -81,7 +83,7 @@ $result = curl_exec($ch);
 
 $response = file_get_contents('http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/');
 
-#var_dump($response);
+var_dump($response);
 foreach (json_decode($response,true) as $customer) {
 print "<tr><td>" . $customer['CustomerName'] . "</td>";
 $CustomerId = $customer['CustomerId'];
