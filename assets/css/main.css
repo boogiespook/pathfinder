@@ -666,6 +666,12 @@ ul.alt li {
   -webkit-overflow-scrolling: touch;
   overflow-x: auto; }
 
+
+.table2 {
+  margin: 0 0 0 0;
+  width: 30%; 
+  }
+
 table {
   margin: 0 0 2rem 0;
   width: 100%; }

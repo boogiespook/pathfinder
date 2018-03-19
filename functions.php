@@ -16,6 +16,21 @@ function getCustomerName($custId) {
 $customerDetails = file_get_contents("http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/$custId");
 $nn = json_decode($customerDetails,true);
 $name = $nn['CustomerName'];
-print $name;
+return $name;
+}
+
+function deleteCustomer($custId) {
+#$data = array("Name" => $appName, "Description" => $appDesc);
+#$data_string = json_encode($data); 	
+$url = "http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/" . $custId;
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");                                                                     
+#curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+    'Content-Type: application/json') 
+);                                                                                                                   
+
+$result = curl_exec($ch); 
 }
 ?>

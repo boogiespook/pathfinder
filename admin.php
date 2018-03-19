@@ -48,7 +48,7 @@ putMenu();
 
 
 					</div>
-					<table><thead><tr><td>Customer Name</td><td>Customer Details</td><td>Edit</td></tr></thead><tbody>
+					<table><thead><tr><td>Customer Name</td><td>Customer Details</td><td>Edit</td><td>Delete</td></tr></thead><tbody>
 <?php
 
 # check if there is a customer to add
@@ -60,8 +60,10 @@ $custDesc = $_REQUEST['description'];
 $custAssessor = $_REQUEST['assessor'];
 $custVertical = $_REQUEST['vertical'];
 
-$data = array("CustomerName" => $custName, "CustomerDescription" => $custDesc, "CustomerAssessor" => $custAssessor, "CustomerVertical" => $custVertical);
+$data = array("CustomerName" => "$custName", "CustomerDescription" => "$custDesc", "CustomerAssessor" => "$custAssessor", "CustomerVertical" => "$custVertical", "CustomerSize" => "Medium");
 $data_string = json_encode($data);                                                                                   
+
+#print_r($data_string);
 
 $ch = curl_init('http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/');
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
@@ -73,7 +75,7 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 );                                                                                                                   
                                                                                                                      
 $result = curl_exec($ch);                                                                      
-
+#var_dump($result);
 #var_dump($data_string);
 }
 
@@ -83,7 +85,7 @@ $result = curl_exec($ch);
 
 $response = file_get_contents('http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/');
 
-var_dump($response);
+#var_dump($response);
 foreach (json_decode($response,true) as $customer) {
 print "<tr><td>" . $customer['CustomerName'] . "</td>";
 $CustomerId = $customer['CustomerId'];
@@ -91,7 +93,7 @@ $CustomerDescription = $customer['CustomerDescription'];
 print "<td>" . $CustomerDescription . "</td>";
 #print "<td>";
 
-print '</td><td><a href=editCustomer.php?customer=' . $CustomerId .'><img src="images/edit.png"></a></td>';
+print '</td><td><a href=editCustomer.php?customer=' . $CustomerId .'><img src="images/edit.png"></a></td><td><a href="deleteCustomer.php?custId='  . $CustomerId .  '"><img src="images/trash.png" width=32px height=32px></a></td>';
 print "</tr>";
 }
 #print "Customer: " . $response[0]['CustomerName'];
@@ -159,7 +161,24 @@ $(document).ready(function(){
     });
 });
 </script>
-
+  <script>
+  $( function() {
+    $( "#dialog-confirm" ).dialog({
+      resizable: false,
+      height: "auto",
+      width: 400,
+      modal: true,
+      buttons: {
+        "Delete all items": function() {
+          $( this ).dialog( "close" );
+        },
+        Cancel: function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+  } );
+  </script>
 
 	</body>
 </html>

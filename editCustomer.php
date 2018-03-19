@@ -73,7 +73,6 @@ print '<div id="message" class="message" style="display:none;">' . $_REQUEST['ap
 $data = array("Name" => $appName, "Description" => $appDesc);
 $data_string = json_encode($data);      
 
-#print_r($data);                                                                             
 $url = "http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/api/pathfinder/customers/" . $custId . "/applications/";
 $ch = curl_init($url);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     

@@ -36,7 +36,7 @@ $custId = $_REQUEST['customer'];
 		<!-- Banner -->
 			<section id="banner2">
 				<div class="inner">
-					<h1><?php getCustomerName($custId); ?> Results</h1>
+					<h1><?php print getCustomerName($custId); ?> Results</h1>
 					<p>View the results of an assessment and review output.</div>
 			</section>
 
@@ -151,7 +151,7 @@ $reviewDate = $reviewDetails['ReviewTimestamp'];
 #}
 
 #print "<td><a href=viewApplication.php?customerId=$cust&applicationId=$appId&reviewId=$reviewId>Reviewed</a><td>$decision</td><td>$effort</td><td>$notes</td><td>$reviewDate</td>";
-print "<td>Complete<td>$businessPriority</td><td>$decision</td><td>$effort</td><td>$reviewDate</td><td><img src='images/details.png'></td>";
+print "<td>Complete<td>$businessPriority</td><td>$decision</td><td>$effort</td><td>$reviewDate</td><td><a href=viewAssessment.php?app=" . $appId . "&assessment=" . $ass[0] . "&customer=" . $cust . "><img src=images/details.png></a></td>";
 
 }
 } else {
