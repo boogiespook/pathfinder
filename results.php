@@ -73,8 +73,6 @@ print "<a href=reviewTableView.php?customer=" . $_REQUEST['customer'] . "><butto
 <!--      <div id="piechartReview" style="width: 300px; height: 300px;"></div>  -->
 
 		</form>	
-
-
 	
 	<?php
 if (isset($_REQUEST['customer'])) {
@@ -140,15 +138,6 @@ $effort = ucfirst(strtolower($reviewDetails['WorkEffort']['rank']));
 $notes = "";
 $notes = $reviewDetails['ReviewNotes'];
 $reviewDate = $reviewDetails['ReviewTimestamp'];
-
-#print "Notes: $notes <br>";
-
-#if (!empty($notes)) {
-#$notesPart = "<div class='flip' id='flip'>Click for notes</div><div class='panel' id='panel'><p>" . $notes . "</p></div>";
-#} else {
-##$notesPart = "None";
-#$notesPart = "<div class='panel' id='panel'><p></p></div>";
-#}
 
 #print "<td><a href=viewApplication.php?customerId=$cust&applicationId=$appId&reviewId=$reviewId>Reviewed</a><td>$decision</td><td>$effort</td><td>$notes</td><td>$reviewDate</td>";
 print "<td>Complete<td>$businessPriority</td><td>$decision</td><td>$effort</td><td>$reviewDate</td><td><a href=viewAssessment.php?app=" . $appId . "&assessment=" . $ass[0] . "&customer=" . $cust . "><img src=images/details.png></a></td>";

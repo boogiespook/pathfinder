@@ -7,6 +7,7 @@ print '		<!-- Nav -->
 					<li><a href="http://pathtest-pathfinder.6923.rh-us-east-1.openshiftapps.com/" target=_blank>Assessment</a></li>
 					<li><a href="results.php">Results</a></li>
 					<li><a href="admin.php">Admin</a></li>
+					<li><a href="workflow.php">Workflow</a></li>
 					<li><a href="credits.php">Credits</a></li>
 				</ul>
 			</nav>';
