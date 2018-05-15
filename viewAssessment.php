@@ -197,9 +197,23 @@ $bubbleData .= '{text: "' . $key . '", count: "' . $value . '"},';
 <tbody>     
     
 <?php 
-for($i = 0, $l = count($allQuestions); $i < $l; ++$i) {
 
-print "<tr><td>" . $allQuestions[$i] . "</td><td>" . $allAnswers[$i] . "</td><td>" . $allRatings[$i] . "</td></tr>"; 
+for($i = 0, $l = count($allQuestions); $i < $l; ++$i) {
+switch ($allRatings[$i]) {
+ case "RED":
+ 		$fontCol = "#FF0000";
+ 		break;
+ case "AMBER":
+ 		$fontCol = "#FCC200";
+ 		break;
+ case "GREEN":
+ 		$fontCol = "#006400";
+ 		break;
+ case "UNKNOWN":
+ 		$fontCol = "#808080";
+ 		break;
+}
+print "<tr><td>" . $allQuestions[$i] . "</td><td>" . $allAnswers[$i] . "</td><td><font color='" . $fontCol . "'>" . $allRatings[$i] . "</font></td></tr>"; 
 
 }
 
